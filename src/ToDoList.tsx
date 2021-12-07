@@ -1,5 +1,29 @@
-import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
+const ToDoList = () => {
+  const { register, watch, handleSubmit } = useForm();
+  console.log("watch", watch());
+  console.log("handleSubmit", handleSubmit);
+
+  return (
+    <div>
+      <h1>ToDoList</h1>
+      <form>
+        <input {...register("email")} type="text" placeholder="Email" />
+        <input {...register("firstName")} type="text" placeholder="FirstName" />
+        <input {...register("lastName")} type="text" placeholder="LastName" />
+        <input {...register("username")} type="text" placeholder="Username" />
+        <input {...register("password")} type="text" placeholder="Password" />
+        <input {...register("passwordConfirm")} type="text" placeholder="PasswordConfirm" />
+        <button>Add</button>
+      </form>
+    </div>
+  );
+};
+
+export default ToDoList;
+
+/*
 const ToDoList = () => {
   const [value, setValue] = useState("");
 
@@ -27,3 +51,4 @@ const ToDoList = () => {
 };
 
 export default ToDoList;
+*/
