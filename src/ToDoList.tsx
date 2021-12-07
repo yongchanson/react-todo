@@ -1,54 +1,26 @@
 import { useForm } from "react-hook-form";
 
 const ToDoList = () => {
-  const { register, watch, handleSubmit } = useForm();
-  console.log("watch", watch());
-  console.log("handleSubmit", handleSubmit);
+  const { register, watch, handleSubmit, formState } = useForm();
+  const onValid = (data: any) => {
+    console.log("data", data);
+  };
+  console.log("formState.errors", formState);
 
   return (
     <div>
       <h1>ToDoList</h1>
-      <form>
-        <input {...register("email")} type="text" placeholder="Email" />
-        <input {...register("firstName")} type="text" placeholder="FirstName" />
-        <input {...register("lastName")} type="text" placeholder="LastName" />
-        <input {...register("username")} type="text" placeholder="Username" />
-        <input {...register("password")} type="text" placeholder="Password" />
-        <input {...register("passwordConfirm")} type="text" placeholder="PasswordConfirm" />
-        <button>Add</button>
+      <form onSubmit={handleSubmit(onValid)} style={{ display: "flex", flexDirection: "column" }}>
+        <input {...register("email", { required: true, minLength: 10 })} type="text" placeholder="Email" />
+        <input {...register("firstName", { required: true, minLength: 5 })} type="text" placeholder="FirstName" />
+        <input {...register("lastName", { required: true, minLength: 5 })} type="text" placeholder="LastName" />
+        <input {...register("username", { required: true, minLength: 5 })} type="text" placeholder="Username" />
+        <input {...register("password", { required: true, minLength: { value: 5, message: "Your Password is too short" } })} type="text" placeholder="Password" />
+        <input {...register("passwordConfirm", { required: "PasswordConfirm is required", minLength: 5 })} type="text" placeholder="PasswordConfirm" />
+        <button type="submit">Add</button>
       </form>
     </div>
   );
 };
 
 export default ToDoList;
-
-/*
-const ToDoList = () => {
-  const [value, setValue] = useState("");
-
-  const handleSubmitForm = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setValue("");
-  };
-
-  const handleChangeInput = (event: React.FormEvent<HTMLInputElement>) => {
-    const {
-      currentTarget: { value },
-    } = event;
-    setValue(value);
-  };
-
-  return (
-    <div>
-      <h1>ToDoList</h1>
-      <form onSubmit={handleSubmitForm}>
-        <input value={value} onChange={handleChangeInput} type="text" placeholder="Write a to do"></input>
-        <button>Add</button>
-      </form>
-    </div>
-  );
-};
-
-export default ToDoList;
-*/
