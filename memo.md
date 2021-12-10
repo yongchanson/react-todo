@@ -123,3 +123,27 @@ const ToDoList = () => {
 
 export default ToDoList;
 ```
+
+### ToDo.tsx
+
+```js
+import { IToDo } from "../atom";
+
+// IToDo["category"] 형태로 IToDo인터페이스에서 category의 내용만 가져올 수 있다.
+const ToDo = ({ text, category }: IToDo) => {
+  const handleChangeCategory = (category: IToDo["category"]) => {
+    console.log("category", category);
+  };
+
+  return (
+    <li>
+      <span>{text}</span>
+      {category !== "To Do" && <button onClick={() => handleChangeCategory("To Do")}>To Do</button>}
+      {category !== "Doing" && <button onClick={() => handleChangeCategory("Doing")}>Doing</button>}
+      {category !== "Done" && <button onClick={() => handleChangeCategory("Done")}>Done</button>}
+    </li>
+  );
+};
+
+export default ToDo;
+```
