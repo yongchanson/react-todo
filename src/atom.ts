@@ -1,3 +1,9 @@
 import { atom } from "recoil";
 
-export const isDarkState = atom({ key: "isDarkState", default: false });
+export interface IToDo {
+  id: number;
+  text: string;
+  category: "To Do" | "Doing" | "Done";
+}
+
+export const toDoState = atom<IToDo[]>({ key: "toDoState", default: [] });
