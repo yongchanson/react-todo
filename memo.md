@@ -147,3 +147,52 @@ const ToDo = ({ text, category }: IToDo) => {
 
 export default ToDo;
 ```
+
+### Selectors
+
+- selector는 atom을 통해 생성한 state값을 받아와서 state값을 변형해서 변형한 결과를 반환한다.
+- 주의할 점은 selector는 state자체를 바꾸는 것이 아닌 state의 output인 결과 값을 바꾸고 있는 것이다.
+
+```js
+// atom.ts
+export const toDoState = atom<IToDo[]>({ key: "toDoState", default: [] });
+
+// selector()메서드를 이용해서 selector함수를 생성해준 후, key와 get을 지정해준다.
+// get은 하나의 함수를 가지고, 함수의 파라미터로 get함수를 받아올 수 있다.
+// get함수를 통해 get(toDoState)로 toDoState의 현재 state값을 받아온 후, state값을 변형해서 반환할 수 있다.
+// selector함수의 get내부의 함수에서 반환한 값은 useRecoilValue(toDoSelector)를 통해 받아와서 여러 컴포넌트에서 사용할 수 있다.
+export const toDoSelector = selector({
+  key: "toDoSelector",
+  get: ({ get }) => {
+    const currentToDos = get(toDoState);
+    const filteredToDo = currentToDos.filter((todo) => todo.category === "To Do");
+    const filteredDoing = currentToDos.filter((todo) => todo.category === "Doing");
+    const filteredDone = currentToDos.filter((todo) => todo.category === "Done");
+    const filteredAllToDoArray = [filteredToDo, filteredDoing, filteredDone];
+    return filteredAllToDoArray;
+  },
+});
+
+// ToDoList.tsx
+const [filteredToDo, filteredDoing, filteredDone] = useRecoilValue(toDoSelector);
+
+<ul>
+  {filteredToDo.map((todo) => (
+    <ToDo key={todo.id} {...todo} />
+  ))}
+</ul>
+
+<h2>Doing</h2>
+<ul>
+  {filteredDoing.map((todo) => (
+    <ToDo key={todo.id} {...todo} />
+  ))}
+</ul>
+
+<h2>Done</h2>
+<ul>
+  {filteredDone.map((todo) => (
+    <ToDo key={todo.id} {...todo} />
+  ))}
+</ul>
+```

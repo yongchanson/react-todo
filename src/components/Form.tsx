@@ -25,7 +25,7 @@ const Form = () => {
   return (
     <>
       <form onSubmit={handleSubmit(handleOnValid)}>
-        <input {...register("todo", { required: "To Do is required" })} type="text" placeholder="Write a todo." />
+        <input {...register("todo", { required: "To Do is required" })} type="text" placeholder="Write a to do." />
         <button type="submit">Add</button>
       </form>
       <h1>{errors?.todo?.message}</h1>
