@@ -8,8 +8,6 @@ const ToDoList = () => {
   const filteredToDoArray = useRecoilValue(toDoSelector);
   const [category, setCategory] = useRecoilState(categoryState);
 
-  console.log("filteredToDoArray", filteredToDoArray);
-
   const handleSelectInput = (event: React.FormEvent<HTMLSelectElement>) => {
     const {
       currentTarget: { value },
