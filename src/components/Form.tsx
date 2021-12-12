@@ -20,7 +20,10 @@ const Form = () => {
   const handleOnValid = (data: IData) => {
     setValue("todo", "");
     setToDo((state) => {
-      return [...state, { id: Date.now(), text: data.todo, category }];
+      const allToDos = [...state, { id: Date.now(), text: data.todo, category }];
+      const stringifiedAllToDos = JSON.stringify(allToDos);
+      localStorage.setItem("ToDos", stringifiedAllToDos);
+      return allToDos;
     });
   };
 
