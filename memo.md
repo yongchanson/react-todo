@@ -196,3 +196,25 @@ const [filteredToDo, filteredDoing, filteredDone] = useRecoilValue(toDoSelector)
   ))}
 </ul>
 ```
+
+### type
+
+```js
+type TCategories = "To Do" | "Doing" | "Done";
+```
+
+### Enums
+
+- enum은 열거형으로 이름이 있는 상수들의 집합을 정의할 수 있습니다.
+- 열거형을 사용하면 의도를 문서화 하거나 구분되는 사례 집합을 더 쉽게 만들수 있습니다.
+- TypeScript는 숫자와 문자열-기반 열거형을 제공합니다.
+- 생성한 Enum은 `Categories.TO_DO`형태로 여러 컴포넌트에서 가져다 쓸 수 있다.
+- https://www.typescriptlang.org/ko/docs/handbook/enums.html
+
+```js
+export enum Categories {
+  "TO_DO" = "TO_DO",
+  "DOING" = "DOING",
+  "DONE" = "DONE",
+}
+```

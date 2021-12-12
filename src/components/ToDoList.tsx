@@ -1,12 +1,14 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { categoryState, IToDo, toDoSelector } from "../atom";
+import { Categories, categoryState, IToDo, toDoSelector } from "../atom";
 import Form from "./Form";
 import ToDo from "./ToDo";
 
 const ToDoList = () => {
   const filteredToDoArray = useRecoilValue(toDoSelector);
   const [category, setCategory] = useRecoilState(categoryState);
+
+  console.log("filteredToDoArray", filteredToDoArray);
 
   const handleSelectInput = (event: React.FormEvent<HTMLSelectElement>) => {
     const {
@@ -21,9 +23,9 @@ const ToDoList = () => {
       <hr />
       <form>
         <select value={category} onInput={handleSelectInput}>
-          <option value="To Do">To Do</option>
-          <option value="Doing">Doing</option>
-          <option value="Done">Done</option>
+          <option value={Categories.TO_DO}>To Do</option>
+          <option value={Categories.DOING}>Doing</option>
+          <option value={Categories.DONE}>Done</option>
         </select>
       </form>
       <Form />
